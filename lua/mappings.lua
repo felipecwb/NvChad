@@ -8,38 +8,62 @@ end
 
 local opt = {}
 
--- dont copy any deleted text , this is disabled by default so uncomment the below mappings if you want them
---[[ remove this line
-
+-- dont copy any deleted text
 map("n", "dd", [=[ "_dd ]=], opt)
 map("v", "dd", [=[ "_dd ]=], opt)
-map("v", "x", [=[ "_x ]=], opt)
+-- map("v", "x", [=[ "_x ]=], opt)
 
- this line too ]]
---
+-- abbreviations
+vim.api.nvim_exec(
+    [[
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+    ]],
+    true
+)
 
 -- OPEN TERMINALS --
-map("n", "<C-l>", [[<Cmd>vnew term://bash <CR>]], opt) -- term over right
-map("n", "<C-x>", [[<Cmd> split term://bash | resize 10 <CR>]], opt) --  term bottom
-map("n", "<C-t>t", [[<Cmd> tabnew | term <CR>]], opt) -- term newtab
+map("n", "<Leader>sH", [[<Cmd> tabnew | term <CR>]], opt) -- term newtab
+map("n", "<Leader>sh", [[<Cmd> split term://bash | resize 10 <CR>]], opt) --  term bottom
 
--- copy whole file content
-map("n", "<C-a>", [[ <Cmd> %y+<CR>]], opt)
+-- select whole content
+map("n", "<C-a>", "ggVG", opt)
 
--- toggle numbers
-map("n", "<leader>n", [[ <Cmd> set nu!<CR>]], opt)
-
--- Truezen.nvim
-map("n", "<leader>zz", ":TZAtaraxis<CR>", opt)
-map("n", "<leader>zm", ":TZMinimalist<CR>", opt)
-map("n", "<leader>zf", ":TZFocus<CR>", opt)
-
+-- save
 map("n", "<C-s>", ":w <CR>", opt)
--- vim.cmd("inoremap jh <Esc>")
 
 -- Commenter Keybinding
-map("n", "<leader>/", ":CommentToggle<CR>", opt)
-map("v", "<leader>/", ":CommentToggle<CR>", opt)
+map("n", "<Leader>/", ":CommentToggle<CR>", opt)
+map("v", "<Leader>/", ":CommentToggle<CR>", opt)
+
+-- reselect with indent
+map("v", "<", "<gv", opt)
+map("v", ">", ">gv", opt)
+
+-- duplicate lines
+map("v", "<C-d>", [["1y"1P]], opt)
+map("n", "<C-d>", [["1Y"1P]], opt)
+
+-- Move visual block
+map("n", "<S-Up>", ":move -2<CR>", opt)
+map("n", "<S-Down>", ":move +1<CR>", opt)
+map("v", "<S-Up>", ":'<,'>move '<-2<CR>gv", opt)
+map("v", "<S-Down>", ":'<,'>move '>+1<CR>gv", opt)
+
+-- search
+map("n", "n", "nzzzv", opt)
+map("n", "N", "Nzzzv", opt)
+map("n", "<Leader><Space>", ":nohlsearch<CR>", opt)
+map("v", "*", ":call visualselection('f')<CR>", opt)
+map("v", "#", ":call visualselection('b')<CR>", opt)
 
 -- compe stuff
 local t = function(str)
@@ -93,32 +117,45 @@ map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 map("i", "<CR>", "v:lua.completions()", {expr = true})
 
 -- nvimtree
-map("n", "<C-n>", ":NvimTreeToggle<CR>", opt)
+map("n", "<S-e>", ":NvimTreeToggle<CR>", opt)
 
 -- format code
 map("n", "<Leader>fm", [[<Cmd> Neoformat<CR>]], opt)
 
 -- dashboard stuff
-map("n", "<Leader>fw", [[<Cmd> Telescope live_grep<CR>]], opt)
-map("n", "<Leader>db", [[<Cmd> Dashboard<CR>]], opt)
-map("n", "<Leader>fn", [[<Cmd> DashboardNewFile<CR>]], opt)
-map("n", "<Leader>bm", [[<Cmd> DashboardJumpMarks<CR>]], opt)
-map("n", "<C-s>l", [[<Cmd> SessionLoad<CR>]], opt)
-map("n", "<C-s>s", [[<Cmd> SessionSave<CR>]], opt)
+map("n", "<Leader>db", [[<Cmd> Dashboard <CR>]], opt)
+map("n", "<Leader>bm", [[<Cmd> DashboardJumpMarks <CR>]], opt)
+map("n", "<Leader>fn", [[<Cmd> DashboardNewFile <CR>]], opt)
 
 -- Telescope
 map("n", "<Leader>gt", [[<Cmd> Telescope git_status <CR>]], opt)
-map("n", "<Leader>cm", [[<Cmd> Telescope git_commits <CR>]], opt)
+map("n", "<Leader>gc", [[<Cmd> Telescope git_commits <CR>]], opt)
+map("n", "<Leader>fg", [[<Cmd> Telescope live_grep <CR>]], opt)
 map("n", "<Leader>ff", [[<Cmd> Telescope find_files <CR>]], opt)
-map("n", "<Leader>fp", [[<Cmd>lua require('telescope').extensions.media_files.media_files()<CR>]], opt)
-map("n", "<Leader>fb", [[<Cmd>Telescope buffers<CR>]], opt)
-map("n", "<Leader>fh", [[<Cmd>Telescope help_tags<CR>]], opt)
-map("n", "<Leader>fo", [[<Cmd>Telescope oldfiles<CR>]], opt)
+map("n", "<Leader>fp", [[<Cmd> Telescope media_files <CR>]], opt)
+map("n", "<Leader>fo", [[<Cmd> Telescope oldfiles <CR>]], opt)
+map("n", "<Leader>fb", [[<Cmd> Telescope buffers <CR>]], opt)
+map("n", "<Leader>ft", [[<Cmd> Telescope tags <CR>]], opt)
+map("n", "<Leader>fh", [[<Cmd> Telescope help_tags <CR>]], opt)
+
+-- sessions
+map("n", "<C-s>l", [[<Cmd> SessionLoad<CR>]], opt)
+map("n", "<C-s>s", [[<Cmd> SessionSave<CR>]], opt)
+
+-- close buffer/tab
+map("n", "<C-q>", ":bp<bar>sp<bar>bn<bar>bd! <CR>", opt)
 
 -- bufferline tab stuff
 map("n", "<S-t>", ":tabnew<CR>", opt) -- new tab
-map("n", "<S-x>", ":bd!<CR>", opt) -- close tab
+map("n", "<S-Esc>", ":bd!<CR>", opt) -- close tab
 
 -- move between tabs
-map("n", "<TAB>", [[<Cmd>BufferLineCycleNext<CR>]], opt)
-map("n", "<S-TAB>", [[<Cmd>BufferLineCyclePrev<CR>]], opt)
+map("n", "<TAB>", [[<Cmd> BufferLineCycleNext<CR>]], opt)
+map("n", "<S-TAB>", [[<Cmd> BufferLineCyclePrev<CR>]], opt)
+
+-- move windows
+map("n", "<C-Up>", "<C-w>k", opt)
+map("n", "<C-Down>", "<C-w>j", opt)
+map("n", "<C-Left>", "<C-w>h", opt)
+map("n", "<C-Right>", "<C-w>l", opt)
+

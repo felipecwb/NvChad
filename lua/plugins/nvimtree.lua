@@ -6,9 +6,9 @@ M.config = function()
     vim.o.termguicolors = true
 
     g.nvim_tree_side = "left"
-    g.nvim_tree_width = 25
-    g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
-    g.nvim_tree_gitignore = 1
+    g.nvim_tree_width = 40
+    g.nvim_tree_ignore = {".git", "node_modules", ".cache", "__pycache__"}
+    g.nvim_tree_gitignore = 0
     g.nvim_tree_auto_ignore_ft = {"dashboard"} -- don't open tree on specific fiypes.
     g.nvim_tree_auto_open = 0
     g.nvim_tree_auto_close = 0 -- closes tree when it's the last window
@@ -17,11 +17,11 @@ M.config = function()
     g.nvim_tree_indent_markers = 1
     g.nvim_tree_hide_dotfiles = 1
     g.nvim_tree_git_hl = 1
-    g.nvim_tree_highlight_opened_files = 0
+    g.nvim_tree_highlight_opened_files = 1
     g.nvim_tree_root_folder_modifier = ":t"
-    g.nvim_tree_tab_open = 0
+    g.nvim_tree_tab_open = 1
     g.nvim_tree_allow_resize = 1
-    g.nvim_tree_add_trailing = 0 -- append a trailing slash to folder names
+    g.nvim_tree_add_trailing = 1 -- append a trailing slash to folder names
     g.nvim_tree_disable_netrw = 1
     g.nvim_tree_hijack_netrw = 0
     g.nvim_tree_update_cwd = 1
@@ -61,7 +61,7 @@ M.config = function()
 
     g.nvim_tree_bindings = {
         {key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit")},
-        {key = {"<2-RightMouse>", "<C-}>"}, cb = tree_cb("cd")},
+        {key = {"<2-RightMouse>", "<C-}>", "CD"}, cb = tree_cb("cd")},
         {key = "<C-v>", cb = tree_cb("vsplit")},
         {key = "<C-x>", cb = tree_cb("split")},
         {key = "<C-t>", cb = tree_cb("tabnew")},
@@ -79,7 +79,7 @@ M.config = function()
         {key = "a", cb = tree_cb("create")},
         {key = "d", cb = tree_cb("remove")},
         {key = "r", cb = tree_cb("rename")},
-        {key = "<C->", cb = tree_cb("full_rename")},
+        -- {key = "<C-r>", cb = tree_cb("full_rename")},
         {key = "x", cb = tree_cb("cut")},
         {key = "c", cb = tree_cb("copy")},
         {key = "p", cb = tree_cb("paste")},
@@ -90,7 +90,7 @@ M.config = function()
         {key = "}c", cb = tree_cb("next_git_item")},
         {key = "-", cb = tree_cb("dir_up")},
         {key = "q", cb = tree_cb("close")},
-        {key = "g?", cb = tree_cb("toggle_help")}
+        {key = "?", cb = tree_cb("toggle_help")}
     }
 end
 

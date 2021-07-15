@@ -28,6 +28,8 @@ return packer.startup(
         -- color related stuff
         use "siduck76/nvim-base16.lua"
 
+        -- use "sainnhe/sonokai"
+
         use {
             "norcalli/nvim-colorizer.lua",
             event = "BufRead",
@@ -36,6 +38,9 @@ return packer.startup(
                 vim.cmd("ColorizerReloadAllBuffers")
             end
         }
+
+        -- more syntax highlight
+        use 'sheerun/vim-polyglot'
 
         -- language related plugins
         use {
@@ -109,11 +114,14 @@ return packer.startup(
             end
         }
 
+        -- Telescope
         use {
             "nvim-telescope/telescope.nvim",
             requires = {
                 {"nvim-lua/popup.nvim"},
-                {"nvim-lua/plenary.nvim"}
+                {"nvim-lua/plenary.nvim"},
+                {"nvim-telescope/telescope-fzf-native.nvim", run = "make"},
+                {"nvim-telescope/telescope-media-files.nvim"}
             },
             cmd = "Telescope",
             config = function()
@@ -121,14 +129,9 @@ return packer.startup(
             end
         }
 
-        use {"nvim-telescope/telescope-fzf-native.nvim", run = "make", cmd = "Telescope"}
-
-        use {
-            "nvim-telescope/telescope-media-files.nvim",
-            cmd = "Telescope"
-        }
-
         -- git stuff
+        use 'tpope/vim-fugitive'
+
         use {
             "lewis6991/gitsigns.nvim",
             event = "BufRead",
@@ -162,21 +165,22 @@ return packer.startup(
             end
         }
 
+        -- multi cursor
+        use 'mg979/vim-visual-multi'
+
         use {
             "glepnir/dashboard-nvim",
-            cmd = {
-                "Dashboard",
-                "DashboardNewFile",
-                "DashboardJumpMarks",
-                "SessionLoad",
-                "SessionSave"
-            },
+            -- cmd = {
+            --     "Dashboard",
+            --     "DashboardNewFile",
+            --     "DashboardJumpMarks",
+            --     "SessionLoad",
+            --     "SessionSave"
+            -- },
             setup = function()
                 require("plugins.dashboard").config()
             end
         }
-
-        use {"tweekmonster/startuptime.vim", cmd = "StartupTime"}
 
         -- load autosave only if its globally enabled
         use {
@@ -186,23 +190,6 @@ return packer.startup(
             end,
             cond = function()
                 return vim.g.auto_save == true
-            end
-        }
-
-        -- smooth scroll
-        use {
-            "karb94/neoscroll.nvim",
-            event = "WinScrolled",
-            config = function()
-                require("neoscroll").setup()
-            end
-        }
-
-        use {
-            "Pocco81/TrueZen.nvim",
-            cmd = {"TZAtaraxis", "TZMinimalist", "TZFocus"},
-            config = function()
-                require("plugins.zenmode").config()
             end
         }
 

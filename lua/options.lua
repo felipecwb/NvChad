@@ -1,8 +1,11 @@
 local opt = vim.opt
 
+
+opt.encoding = "utf-8"
+opt.fileformats = "unix,dos,mac"
+opt.wrap = false
 opt.ruler = false
 opt.hidden = true
-opt.ignorecase = true
 opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
@@ -12,7 +15,16 @@ opt.signcolumn = "yes"
 opt.cmdheight = 1
 opt.updatetime = 250 -- update interval for gitsigns
 opt.timeoutlen = 400
+opt.list = true
+opt.listchars = "tab:▸→,extends:❯,precedes:❮,trail:·"
+opt.showbreak = "↪"
 opt.clipboard = "unnamedplus"
+opt.backspace = "indent,eol,start"
+opt.autoread = true
+-- opt.backup = false
+-- opt.swapfile = false
+opt.dir = "~/.vim/swap//,/var/tmp//,/tmp//,."
+opt.tags = "~/.vim/tag//,/var/tmp//,/tmp//,"
 
 -- Numbers
 opt.number = true
@@ -21,8 +33,17 @@ opt.numberwidth = 2
 
 -- for indenline
 opt.expandtab = true
-opt.shiftwidth = 2
 opt.smartindent = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.softtabstop = 0
+
+-- search
+opt.hlsearch = true
+opt.incsearch = true
+opt.ignorecase = true
+opt.smartcase = true
+opt.magic = true
 
 -- disable builtin vim plugins
 vim.g.loaded_gzip = 0
