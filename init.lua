@@ -10,7 +10,7 @@ g.auto_save = false
 -- colorscheme related stuff
 g.nvchad_theme = "onedark"
 local base16 = require "base16"
-base16(base16.themes["onedark"], true)
+base16(base16.themes["oceanicnext"], true)
 
 -- g.sonokai_style = 'atlantis'
 -- g.sonokai_enable_italic = 1

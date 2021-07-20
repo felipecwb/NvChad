@@ -40,7 +40,7 @@ return packer.startup(
         }
 
         -- more syntax highlight
-        use 'sheerun/vim-polyglot'
+        use "sheerun/vim-polyglot"
 
         -- language related plugins
         use {
@@ -194,7 +194,6 @@ return packer.startup(
         }
 
         --   use "alvan/vim-closetag" -- for html autoclosing tag
-
         use {
             "lukas-reineke/indent-blankline.nvim",
             event = "BufRead",
