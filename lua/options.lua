@@ -1,6 +1,5 @@
 local opt = vim.opt
 
-
 opt.encoding = "utf-8"
 opt.fileformats = "unix,dos,mac"
 opt.wrap = false

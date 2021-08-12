@@ -7,15 +7,11 @@ local g = vim.g
 g.mapleader = ","
 g.auto_save = false
 
--- colorscheme related stuff
-g.nvchad_theme = "onedark"
-local base16 = require "base16"
-base16(base16.themes["oceanicnext"], true)
+-- colorscheme
+--vim.cmd("colorscheme sonokai")
+require "zephyr"
 
--- g.sonokai_style = 'atlantis'
--- g.sonokai_enable_italic = 1
--- g.sonokai_disable_italic_comment = 1
--- vim.api.nvim_command("colorscheme sonokai")
+g.nvchad_theme = "onedark"
 
 require "highlights"
 require "mappings"

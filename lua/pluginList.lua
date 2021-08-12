@@ -26,9 +26,9 @@ return packer.startup(
         }
 
         -- color related stuff
-        use "siduck76/nvim-base16.lua"
-
+        -- use "norcalli/nvim-base16.lua"
         -- use "sainnhe/sonokai"
+        use "glepnir/zephyr-nvim"
 
         use {
             "norcalli/nvim-colorizer.lua",
