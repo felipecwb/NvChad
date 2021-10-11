@@ -101,9 +101,10 @@ return packer.startup(
         -- file managing , picker etc
         use {
             "kyazdani42/nvim-tree.lua",
-            cmd = "NvimTreeToggle",
+            cmd = { "NvimTreeToggle", "NvimTreeFocus", "NvimTreeRefresh" }, -- "NvimTreeToggle",
             config = function()
                 require("plugins.nvimtree").config()
+                require('nvim-tree').setup {}
             end
         }
 
